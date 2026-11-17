@@ -94,6 +94,7 @@ dagster dev        # UI at http://localhost:3000
 - **Two `@dbt_assets` definitions.** `fct_reviews` is excluded from the main asset definition (`exclude="fct_reviews"`) and defined again with partitions. Without the exclude, Dagster rejects the duplicate asset key.
 - **Seeds and sources appear separately.** In the dbt project, the raw tables are loaded as seeds (`raw_listings`, `raw_hosts`, `raw_reviews`) and read through dbt sources, standing in for an ingestion tool. Dagster treats the seeds and the sources as different assets and does not allow mapping both to the same key, so the raw seeds appear unconnected in the graph.
 - **`install_deps=False`.** dbt packages are installed once with `dbt deps` in the dbt project, so starting Dagster never depends on reaching the dbt package hub.
+- **`profiles_dir` points into the dbt project.** dagster-dbt looks for `profiles.yml` in `~/.dbt/` by default. The dbt project keeps its dev and prod targets in `_prod_profiles/profiles.yml` (relative DuckDB paths, no secrets), so Dagster uses the same file as local runs and CI.
 - **`protobuf<7`.** Dagster 1.13's gRPC dependencies are not compatible with protobuf 7, so it is pinned in `pyproject.toml`.
 
 ---
