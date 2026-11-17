@@ -1,0 +1,7 @@
+.tmp_dagster_home*/
+dbt-project/
+__pycache__/
+*.egg-info/
+.venv/
+venv/
+.env
